@@ -43,14 +43,14 @@ const InstallationProcess = () => {
         <section ref={containerRef} className="relative py-32 px-6 bg-[#0B0F14]">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center space-y-md mb-32">
-                    <div className="inline-flex items-center gap-3 text-blueprint-accent font-bold tracking-[0.4em] text-[10px] uppercase font-sans mx-auto">
+                    <div className="inline-flex items-center gap-3 text-blueprint-accent font-bold tracking-[0.4em] text-[12px] uppercase font-sans mx-auto">
                         <span className="w-10 h-[1px] bg-blueprint-accent/50" />
                         The Methodology
                     </div>
                     <h2 className="text-blueprint-text uppercase font-light tracking-tighter">
                         THE PATH TO <br /><span className="text-blueprint-accent font-bold">STRUCTURAL PURITY</span>
                     </h2>
-                    <p className="text-lg md:text-xl text-blueprint-text/30 max-w-lg mx-auto font-light font-sans tracking-tight">
+                    <p className="text-lg md:text-xl text-blueprint-text/80 max-w-lg mx-auto font-normal font-sans tracking-tight">
                         "A sequenced integration into the built environment."
                     </p>
                 </div>
@@ -71,9 +71,9 @@ const InstallationProcess = () => {
                                     <div className="absolute inset-0 bg-blueprint-accent/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
                                 <div className="space-y-4">
-                                    <div className="text-[10px] font-bold text-blueprint-accent/60 tracking-[0.4em] uppercase font-sans">Sequence 0{i + 1}</div>
+                                    <div className="text-[12px] font-bold text-blueprint-accent/80 tracking-[0.4em] uppercase font-sans">Sequence 0{i + 1}</div>
                                     <h4 className="text-xl font-bold tracking-[0.1em] font-sans uppercase text-blueprint-text">{step.title}</h4>
-                                    <p className="text-sm text-blueprint-text/40 leading-relaxed font-sans max-w-[200px] mx-auto lg:mx-0">{step.desc}</p>
+                                    <p className="text-[15px] text-blueprint-text/80 leading-relaxed font-sans max-w-[200px] mx-auto lg:mx-0">{step.desc}</p>
                                 </div>
 
                                 <div className="hidden lg:block w-2.5 h-2.5 rounded-full bg-white/5 absolute top-[3.25rem] left-6 group-hover:bg-blueprint-accent transition-all shadow-sm" />

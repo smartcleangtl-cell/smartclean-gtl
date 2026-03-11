@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Phone, Mail, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { clsx, type ClassValue } from 'clsx';
+
+gsap.registerPlugin(ScrollTrigger);
 import { twMerge } from 'tailwind-merge';
 
 function cn(...inputs: ClassValue[]) {
@@ -14,18 +18,19 @@ const Navbar = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const handleScroll = () => {
-            // Smoother threshold and debounced-feel scroll
-            const offset = window.scrollY;
-            if (offset > 20) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
+        // Use ScrollTrigger to detect scroll reliably even with virtual scroll containers
+        const st = gsap.to({}, {
+            scrollTrigger: {
+                trigger: "body",
+                start: "top -5",
+                onEnter: () => setIsScrolled(true),
+                onLeaveBack: () => setIsScrolled(false),
             }
-        };
+        });
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            if (st.scrollTrigger) st.scrollTrigger.kill();
+        };
     }, []);
 
     useEffect(() => {
@@ -44,143 +49,152 @@ const Navbar = () => {
     return (
         <nav
             className={cn(
-                'fixed top-0 left-0 w-full z-[1000] transition-all duration-500 ease-in-out',
+                'fixed top-0 left-0 w-full z-[1000] transition-all duration-400 ease-in-out',
                 isScrolled
-                    ? 'bg-[#353a41]/2 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)] py-0'
-                    : 'bg-transparent py-2 lg:py-0',
-                // Premium Glass Break for mobile/tablet to prevent overlap text bugs
-                'lg:bg-transparent bg-[#0B0F14]/90 backdrop-blur-xl lg:backdrop-blur-none border-b lg:border-none border-white/5'
+                    ? 'bg-[#0B0F14] py-2 border-b border-blueprint-accent/50 shadow-[0_8px_48px_rgba(0,0,0,0.95)]'
+                    : 'bg-transparent py-8'
             )}
         >
-            {/* Top Contact Bar - Desktop Only */}
-            {!isScrolled && (
-                <div className="hidden lg:block bg-blueprint-accent/5 py-2.5 border-b border-white/5">
+            {/* Top Contact Bar - Completely hidden on scroll for clean minimalism */}
+                <div className={cn(
+                    "hidden lg:block bg-blueprint-accent/5 py-2 border-b border-white/5 overflow-hidden transition-all duration-500",
+                    isScrolled ? "h-0 opacity-0 py-0" : "h-auto opacity-100"
+                )}>
                     <div className="max-w-[1440px] mx-auto px-xl flex justify-between items-center">
                         <div className="flex items-center gap-8">
-                            <a href="tel:+94714811047" className="flex items-center gap-2 text-[10px] font-bold tracking-[0.1em] text-blueprint-text/60 hover:text-blueprint-accent transition-colors uppercase font-sans">
-                                <Phone size={12} className="text-blueprint-accent" />
+                            <a href="tel:+94714811047" className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-blueprint-text/60 hover:text-blueprint-accent transition-colors uppercase font-sans">
+                                <Phone size={10} className="text-blueprint-accent" />
                                 +94 71 481 1047
                             </a>
-                            <a href="mailto:smartclean.gtl@gmail.com" className="flex items-center gap-2 text-[10px] font-bold tracking-[0.1em] text-blueprint-text/60 hover:text-blueprint-accent transition-colors uppercase font-sans">
-                                <Mail size={12} className="text-blueprint-accent" />
+                            <a href="mailto:smartclean.gtl@gmail.com" className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-blueprint-text/60 hover:text-blueprint-accent transition-colors uppercase font-sans">
+                                <Mail size={10} className="text-blueprint-accent" />
                                 smartclean.gtl@gmail.com
                             </a>
                         </div>
                         <div className="flex items-center gap-5">
-                            <a href="https://www.facebook.com/smartcleansrilanka/" target="_blank" rel="noopener noreferrer" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors"><Facebook size={14} /></a>
-                            <a href="https://www.instagram.com/smartcleanlk/" target="_blank" rel="noopener noreferrer" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors"><Instagram size={14} /></a>
-                            <a href="#" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors" title="X (Twitter)"><Twitter size={14} /></a>
-                            <a href="#" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors" title="TikTok">
-                                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 2.89 3.46 2.67 1.25-.1 2.38-.94 2.79-2.12.19-.58.2-1.18.19-1.79V.02z" />
-                                </svg>
-                            </a>
-                            <a href="#" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors" title="LinkedIn"><Linkedin size={14} /></a>
+                            <a href="https://www.facebook.com/smartcleansrilanka/" target="_blank" rel="noopener noreferrer" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors"><Facebook size={12} /></a>
+                            <a href="https://www.instagram.com/smartcleanlk/" target="_blank" rel="noopener noreferrer" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors"><Instagram size={12} /></a>
+                            <a href="#" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors" title="X (Twitter)"><Twitter size={12} /></a>
+                            <a href="#" className="text-blueprint-text/40 hover:text-blueprint-accent transition-colors" title="LinkedIn"><Linkedin size={12} /></a>
                         </div>
                     </div>
                 </div>
-            )}
 
             <div className={cn(
-                "px-md md:px-xl transition-all duration-500",
-                isScrolled ? "h-[70px]" : "h-[85px] lg:h-[95px]"
+                "px-md md:px-xl transition-all duration-700 mx-auto max-w-[1600px]",
+                isScrolled ? "h-[64px]" : "h-[90px] lg:h-[110px]"
             )}>
-                <div className="h-full max-w-[1440px] mx-auto flex items-center justify-between">
-                    <Link to="/" className="flex items-center gap-sm group flex-shrink-0">
-                        {/* Logo SVG - Rendered inline to avoid white-bg issues */}
-                        <svg
-                            viewBox="0 0 200 200"
-                            width="36"
-                            height="36"
-                            className="h-8 md:h-10 w-auto transition-all duration-300 flex-shrink-0"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="10" />
-                            <path
-                                d="M 30 140 C 50 60, 120 20, 175 60 C 155 30, 80 40, 60 120 Z"
-                                fill="currentColor"
-                                opacity="0.9"
+                <div className="h-full flex items-center justify-between">
+                    <Link to="/" className="flex items-center gap-5 group flex-shrink-0">
+                        {/* Final Logo Implementation */}
+                        <div className={cn(
+                            "relative flex items-center justify-center transition-all duration-700",
+                            isScrolled ? "h-10 w-10" : "h-14 w-14"
+                        )}>
+                            <img 
+                                src="/android-chrome-512x512.png" 
+                                alt="SmartClean Logo"
+                                className="h-full w-full object-contain transition-all duration-500 transform group-hover:scale-105"
                             />
-                            <path
-                                d="M 50 165 C 75 90, 140 50, 185 90 C 165 55, 95 70, 75 145 Z"
-                                fill="currentColor"
-                                opacity="0.6"
-                            />
-                        </svg>
-                        <div className="flex flex-col -space-y-1">
-                            <span className="text-lg font-bold tracking-tight text-blueprint-text uppercase font-sans">SMART</span>
-                            <span className="text-[10px] font-bold tracking-[0.3em] text-blueprint-silver uppercase font-sans">CLEAN</span>
+                        </div>
+                        <div className="flex flex-col -space-y-1.5 pt-1">
+                            <span className={cn(
+                                "font-black tracking-tighter text-blueprint-text uppercase font-sans transition-all duration-700",
+                                isScrolled ? "text-xl" : "text-3xl"
+                            )}>SMART</span>
+                            <span className={cn(
+                                "font-bold tracking-[0.5em] text-blueprint-accent uppercase font-sans transition-all duration-700",
+                                isScrolled ? "text-[10px]" : "text-[13px]"
+                            )}>CLEAN</span>
                         </div>
                     </Link>
 
-                    {/* Desktop Menu */}
-                    <div className="hidden lg:flex items-center gap-6 lg:gap-14 ml-8">
-                        <div className="flex items-center gap-4 lg:gap-8">
+                    {/* Navbar Content */}
+                    <div className="hidden lg:flex items-center gap-16">
+                        <div className="flex items-center gap-10">
                             {navItems.map((item) => (
                                 <Link
                                     key={item.name}
                                     to={item.href}
                                     title={item.title}
                                     className={cn(
-                                        "text-[12px] font-semibold tracking-[0.1em] uppercase transition-all duration-120 font-sans whitespace-nowrap",
+                                        "text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-300 font-sans relative group",
                                         location.pathname === item.href
                                             ? "text-blueprint-text"
-                                            : "text-blueprint-text/60 hover:text-blueprint-text"
+                                            : "text-blueprint-text/50 hover:text-blueprint-text"
                                     )}
                                 >
                                     {item.name}
-                                    {location.pathname === item.href && (
-                                        <div className="h-[2px] w-full bg-blueprint-accent/40 mt-[2px] rounded-full" />
-                                    )}
+                                    <div className={cn(
+                                        "absolute -bottom-2 left-0 h-[2px] bg-blueprint-accent transition-all duration-500 rounded-full",
+                                        location.pathname === item.href ? "w-full opacity-100" : "w-0 opacity-0 group-hover:w-1/2 group-hover:opacity-50"
+                                    )} />
                                 </Link>
                             ))}
                         </div>
 
                         <Link
                             to="/contact"
-                            title="Schedule a free consultation"
-                            className="px-6 py-3 text-[11px] font-bold tracking-widest uppercase rounded-button border border-white/10 text-blueprint-text hover:bg-blueprint-text hover:text-blueprint-bg transition-all duration-140 active:scale-[0.985] font-sans whitespace-nowrap"
+                            className={cn(
+                                "px-8 py-3.5 text-[11px] font-black tracking-[0.2em] uppercase transition-all duration-500 font-sans border rounded-button",
+                                isScrolled 
+                                    ? "bg-blueprint-accent text-white border-transparent shadow-lg shadow-blueprint-accent/20 scale-95" 
+                                    : "bg-transparent text-blueprint-text border-white/20 hover:border-blueprint-accent"
+                            )}
                         >
                             Book Site Assessment
                         </Link>
                     </div>
 
-                    {/* Mobile Toggle */}
+                    {/* Mobile Menu Button */}
                     <button
-                        className="lg:hidden text-blueprint-text p-2 hover:bg-white/5 rounded-full transition-colors"
+                        className="lg:hidden text-blueprint-text p-3 hover:bg-white/5 rounded-2xl transition-all"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
-                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        <Menu size={28} />
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu Overlay - Moved outside height-constrained container */}
+            {/* Mobile Menu Overlay */}
             <div
                 className={cn(
-                    'fixed inset-0 bg-[#0B0F14] z-[1001] lg:hidden transition-all duration-500 pt-24 px-8 overflow-y-auto',
+                    'fixed inset-0 bg-[#06080A]/98 backdrop-blur-3xl z-[2000] lg:hidden transition-all duration-700 ease-in-out px-10 pt-40',
                     isMobileMenuOpen
-                        ? 'translate-x-0 opacity-100 pointer-events-auto'
-                        : 'translate-x-full opacity-0 pointer-events-none'
+                        ? 'translate-y-0 opacity-100'
+                        : '-translate-y-full opacity-0 pointer-events-none'
                 )}
             >
-                <div className="flex flex-col gap-8 text-2xl font-semibold font-sans">
-                    {navItems.map((item) => (
+                {/* Close Button Inside Overlay */}
+                <button
+                    className="absolute top-10 right-8 text-blueprint-text/60 hover:text-blueprint-accent p-2 transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                >
+                    <X size={32} />
+                </button>
+
+                <div className="flex flex-col gap-10 text-3xl font-bold font-sans">
+                    {navItems.map((item, idx) => (
                         <Link
                             key={item.name}
                             to={item.href}
                             className={cn(
-                                "transition-colors uppercase tracking-tight",
+                                "transition-all duration-500 uppercase tracking-tighter transform",
+                                isMobileMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0",
                                 location.pathname === item.href ? "text-blueprint-accent" : "text-blueprint-text/40 hover:text-blueprint-text"
                             )}
+                            style={{ transitionDelay: `${idx * 50}ms` }}
                         >
                             {item.name}
                         </Link>
                     ))}
                     <Link
                         to="/contact"
-                        className="mt-4 mb-20 px-8 py-5 text-sm font-bold tracking-widest uppercase rounded-button bg-blueprint-accent text-white hover:bg-blueprint-text hover:text-blueprint-bg transition-all duration-140 text-center font-sans shadow-xl inline-block"
+                        className={cn(
+                            "mt-4 px-8 py-5 text-sm font-black tracking-[0.2em] uppercase rounded-button bg-blueprint-accent text-white shadow-2xl shadow-blueprint-accent/20 text-center font-sans transition-all duration-500",
+                            isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+                        )}
+                        style={{ transitionDelay: '350ms' }}
                     >
                         Book Site Assessment
                     </Link>

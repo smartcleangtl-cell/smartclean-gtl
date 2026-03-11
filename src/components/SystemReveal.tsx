@@ -81,14 +81,14 @@ const SystemReveal = () => {
 
                 {/* Left: Text Content */}
                 <div className="col-span-12 lg:col-span-5 space-y-md z-10">
-                    <div className="inline-flex items-center gap-3 text-blueprint-accent font-bold tracking-[0.3em] text-[9px] uppercase font-sans">
+                    <div className="inline-flex items-center gap-3 text-blueprint-accent font-bold tracking-[0.3em] text-[12px] uppercase font-sans">
                         <span className="w-10 h-[1px] bg-blueprint-accent/50" />
                         Wall Inlet Interface
                     </div>
                     <h2 className="text-blueprint-text uppercase">
                         DESIGNED FOR <br /> <span className="text-blueprint-accent">REAL HOMES</span>
                     </h2>
-                    <p className="text-lg text-blueprint-text/40 font-light leading-relaxed font-sans">
+                    <p className="text-lg text-blueprint-text/85 font-normal leading-relaxed font-sans">
                         Cleaning should not interrupt daily life. Lightweight hoses connect to wall inlets placed throughout the house.
                         No machine to carry, no cables to drag, and no motor noise inside living spaces.
                     </p>
@@ -97,12 +97,12 @@ const SystemReveal = () => {
                         <div className="p-xl bg-blueprint-surface/40 backdrop-blur-xl rounded-button border border-white/5 space-y-md hover:border-blueprint-accent/30 transition-blueprint group">
                             <Wind className="text-blueprint-accent" size={24} />
                             <h4 className="font-bold text-xl font-sans text-blueprint-text">Sealed System</h4>
-                            <p className="text-sm text-blueprint-text/40 font-sans leading-relaxed">Airflow particles only engage when the physical connection is confirmed.</p>
+                            <p className="text-[15px] text-blueprint-text/80 font-sans leading-relaxed">Airflow particles only engage when the physical connection is confirmed.</p>
                         </div>
                         <div className="p-xl bg-blueprint-surface/40 backdrop-blur-xl rounded-button border border-white/5 space-y-md hover:border-blueprint-accent/30 transition-blueprint group">
                             <Zap className="text-blueprint-accent" size={24} />
                             <h4 className="font-bold text-xl font-sans text-blueprint-text">Instant Response</h4>
-                            <p className="text-sm text-blueprint-text/40 font-sans leading-relaxed">Tactile confirmation via cubic easing transitions and material reflectivity.</p>
+                            <p className="text-[15px] text-blueprint-text/80 font-sans leading-relaxed">Tactile confirmation via cubic easing transitions and material reflectivity.</p>
                         </div>
                     </div>
                 </div>
@@ -124,9 +124,9 @@ const SystemReveal = () => {
 
                     {/* Interaction Cues */}
                     <div className="absolute inset-x-0 bottom-8 flex justify-center pointer-events-none">
-                        <div className="glass-premium px-6 py-3 rounded-full flex items-center gap-3 animate-bounce">
+                        <div className="glass-premium px-6 py-3 rounded-full flex items-center gap-3 animate-bounce bg-white/10 backdrop-blur-2xl border-white/20">
                             <MousePointer2 size={14} className="text-blueprint-accent" />
-                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-blueprint-text">
+                            <span className="text-[12px] font-bold tracking-[0.2em] uppercase text-blueprint-text">
                                 {isActive ? 'System Engaged' : 'Click to Snap Connection'}
                             </span>
                         </div>
@@ -134,7 +134,7 @@ const SystemReveal = () => {
 
                     {/* Technical Annotation */}
                     <div className="absolute top-8 right-8 text-right">
-                        <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-blueprint-text/20">
+                        <div className="text-[11px] font-bold tracking-[0.3em] uppercase text-blueprint-text/60">
                             Model: SC-INLET-04 <br />
                             Material: Brushed Aluminum <br />
                             State: {isActive ? 'Flow Active' : 'Idle'}

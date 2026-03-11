@@ -42,14 +42,14 @@ function App() {
                                 <span className="text-xl font-bold tracking-tight text-blueprint-text uppercase font-sans">SMART</span>
                                 <span className="text-[11px] font-bold tracking-[0.3em] text-blueprint-silver uppercase font-sans">CLEAN</span>
                             </div>
-                            <p className="text-sm text-blueprint-text/40 leading-relaxed font-sans max-w-xs">
+                            <p className="text-[15px] text-blueprint-text/80 leading-relaxed font-sans max-w-xs">
                                 Smart Clean provides centralized vacuum solutions designed for modern homes and commercial buildings.
                             </p>
                         </div>
                         <div className="grid grid-cols-2 gap-8">
                             <div className="space-y-6">
-                                <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blueprint-text/20 font-sans">Navigation</h4>
-                                <ul className="space-y-4 text-sm font-sans text-blueprint-text/40">
+                                <h4 className="text-[12px] font-bold uppercase tracking-[0.3em] text-blueprint-text/60 font-sans">Navigation</h4>
+                                <ul className="space-y-4 text-[15px] font-sans text-blueprint-text/80">
                                     <li><Link to="/how-it-works" className="hover:text-blueprint-text transition-colors">How It Works</Link></li>
                                     <li><Link to="/residential" className="hover:text-blueprint-text transition-colors">Residential</Link></li>
                                     <li><Link to="/commercial" className="hover:text-blueprint-text transition-colors">Commercial</Link></li>
@@ -63,8 +63,8 @@ function App() {
                             </div>
                         </div>
                         <div className="space-y-6">
-                            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blueprint-text/20 font-sans">Connect</h4>
-                            <ul className="space-y-4 text-sm font-sans text-blueprint-text/40">
+                            <h4 className="text-[12px] font-bold uppercase tracking-[0.3em] text-blueprint-text/60 font-sans">Connect</h4>
+                            <ul className="space-y-4 text-[15px] font-sans text-blueprint-text/80">
                                 <li>Colombo, Sri Lanka</li>
                                 <li>inquiry@smartclean.lk</li>
                                 <li>Service available nationwide</li>

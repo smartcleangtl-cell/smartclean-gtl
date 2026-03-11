@@ -1,24 +1,35 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Settings, Shield, Zap, VolumeX } from 'lucide-react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, PerspectiveCamera, MeshDistortMaterial } from '@react-three/drei';
-import * as THREE from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
-
-// 3D components removed for clarity per user feedback
 
 const ExplodedView = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const componentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     const components = [
-        { title: "Hidden Pipe Network", desc: "Anti-static PVC piping integrated into the wall structure, becoming a permanent part of the house.", icon: <Zap size={32} /> },
-        { title: "Cyclonic Filtration", desc: "Removes 99.9% of fine dust and allergens, exhausting them outside the living space.", icon: <Shield size={32} /> },
-        { title: "Central Power Core", desc: "Located in service areas to isolate all noise and exhaust from your living environment.", icon: <Settings size={32} /> },
-        { title: "Wall Inlet Interface", desc: "Sleek, low-profile inlets placed strategically for maximum floor coverage.", icon: <VolumeX size={32} /> },
+        {
+            title: 'Hidden Pipe Network',
+            desc: 'Concealed piping becomes part of the building itself, distributing suction through walls and ceilings.',
+            icon: <Zap size={24} />,
+        },
+        {
+            title: 'Dust Separation',
+            desc: 'Dust and fine particles are transported away from the occupied space instead of being released back.',
+            icon: <Shield size={24} />,
+        },
+        {
+            title: 'Central Power Unit',
+            desc: 'Installed in a service zone to isolate sound and keep the mechanical core away from living areas.',
+            icon: <Settings size={24} />,
+        },
+        {
+            title: 'Room Inlet Access',
+            desc: 'Discrete wall inlets provide access to the same centralized suction network from multiple rooms.',
+            icon: <VolumeX size={24} />,
+        },
     ];
 
     useEffect(() => {
@@ -28,33 +39,38 @@ const ExplodedView = () => {
                 gsap.from(el, {
                     scrollTrigger: {
                         trigger: el,
-                        start: "top bottom-=100",
-                        toggleActions: "play none none reverse"
+                        start: 'top bottom-=50',
+                        toggleActions: 'play none none reverse',
                     },
-                    x: i % 2 === 0 ? -40 : 40,
+                    y: 20,
                     opacity: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    delay: i * 0.1
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    delay: i * 0.1,
                 });
             });
-        });
-
+        }, containerRef);
         return () => ctx.revert();
     }, []);
 
     return (
-        <section ref={containerRef} className="relative min-h-screen w-full bg-[#0B0F14] py-[180px] px-6 overflow-hidden border-y border-white/5">
+        <section
+            ref={containerRef}
+            className="relative min-h-screen w-full bg-[#0B0F14] py-[100px] px-6 overflow-hidden border-b border-white/5"
+        >
             <div className="max-w-7xl mx-auto grid grid-cols-12 gap-md relative z-10">
-
-                <div className="col-span-12 lg:col-span-12 text-center space-y-md mb-xxl">
-                    <div className="inline-block px-4 py-1 rounded-full border border-blueprint-accent/20 text-blueprint-accent text-[10px] font-bold tracking-[0.3em] uppercase font-sans">
-                        Internal Mechanics
+                <div className="col-span-12 text-center space-y-md mb-16">
+                    <div className="inline-block px-4 py-1 rounded-full border border-blueprint-accent/30 bg-blueprint-accent/5 text-blueprint-accent text-[11px] font-black tracking-[0.3em] uppercase font-sans">
+                        Internal Architecture
                     </div>
-                    <h2 className="text-blueprint-text uppercase">A CLEANING SYSTEM <br /><span className="text-blueprint-accent">INTEGRATED INTO YOUR HOME</span></h2>
-                    <p className="text-lg md:text-xl text-blueprint-text/40 max-w-2xl mx-auto font-light leading-relaxed font-sans">
-                        Unlike portable vacuum cleaners, a central vacuum system becomes part of the building itself.
-                        Hidden pipe networks connect each room to a central motor unit located in a garage or service area.
+
+                    <h2 className="text-blueprint-text uppercase">
+                        A CLEANING SYSTEM<br />
+                        <span className="text-blueprint-accent font-bold">INTEGRATED INTO THE BUILDING</span>
+                    </h2>
+
+                    <p className="text-lg md:text-xl text-blueprint-text/70 max-w-2xl mx-auto leading-relaxed font-sans">
+                        Designed for permanence. The system moves debris completely out of your living environment through a dedicated utility network.
                     </p>
                 </div>
 
@@ -62,44 +78,48 @@ const ExplodedView = () => {
                     {components.slice(0, 2).map((comp, i) => (
                         <div
                             key={i}
-                            ref={el => componentRefs.current[i] = el}
-                            className="p-xl bg-blueprint-surface/40 backdrop-blur-xl rounded-button border border-white/5 space-y-md hover:border-blueprint-accent/30 transition-blueprint group"
+                            ref={(el) => (componentRefs.current[i] = el)}
+                            className="p-8 bg-blueprint-surface/20 backdrop-blur-xl rounded-button border border-white/5 space-y-4 hover:border-blueprint-accent/40 transition-all duration-300"
                         >
                             <div className="w-12 h-12 rounded-lg bg-blueprint-accent/10 flex items-center justify-center text-blueprint-accent">
                                 {comp.icon}
                             </div>
-                            <h4 className="font-bold text-xl uppercase font-sans text-blueprint-text">{comp.title}</h4>
-                            <p className="text-blueprint-text/40 text-sm leading-relaxed font-sans">{comp.desc}</p>
+                            <h4 className="font-bold text-lg uppercase font-sans text-blueprint-text">
+                                {comp.title}
+                            </h4>
+                            <p className="text-blueprint-text/60 text-sm leading-relaxed font-sans">
+                                {comp.desc}
+                            </p>
                         </div>
                     ))}
                 </div>
 
-                {/* Central Concrete System Visual */}
-                <div className="col-span-12 lg:col-span-4 h-[500px] order-1 lg:order-2 relative flex items-center justify-center p-md">
-                    <div className="relative w-full h-full flex items-center justify-center">
-                        <div className="absolute inset-x-0 top-0 h-1/2 rounded-button bg-blueprint-surface/20 border border-white/5 overflow-hidden group shadow-2xl">
+                {/* Center visual stack */}
+                <div className="col-span-12 lg:col-span-4 h-[480px] order-1 lg:order-2 relative flex items-center justify-center px-4">
+                    <div className="relative w-full h-full flex flex-col gap-4">
+                        <div className="flex-1 rounded-button bg-blueprint-surface/10 border border-white/5 overflow-hidden relative group">
                             <img
                                 src="/motor_unit.png"
-                                className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-1000"
-                                alt="System Motor Unit"
+                                className="w-full h-full object-cover opacity-40 grayscale group-hover:opacity-60 transition-opacity"
+                                alt="Central Power Unit"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F14] to-transparent opacity-60" />
-                            <div className="absolute bottom-3 left-4 text-[8px] font-bold tracking-[0.3em] uppercase text-blueprint-accent">Central Power Core // V2</div>
+                            <div className="absolute bottom-4 left-4 text-[9px] font-black tracking-widest uppercase text-blueprint-accent">
+                                Infrastructure Core
+                            </div>
                         </div>
-                        <div className="absolute inset-x-0 bottom-0 h-1/2 rounded-button bg-blueprint-surface/20 border border-white/5 overflow-hidden group shadow-2xl mt-4">
+
+                        <div className="flex-1 rounded-button bg-blueprint-surface/10 border border-white/5 overflow-hidden relative group">
                             <img
                                 src="/pipe_diagram.png"
-                                className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-1000 scale-110"
+                                className="w-full h-full object-cover opacity-40 grayscale group-hover:opacity-60 transition-opacity"
                                 alt="Pipe System Diagram"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F14] to-transparent opacity-60" />
-                            <div className="absolute bottom-3 left-4 text-[8px] font-bold tracking-[0.3em] uppercase text-blueprint-accent">Structural Pipe Network // Analysis</div>
+                            <div className="absolute bottom-4 left-4 text-[9px] font-black tracking-widest uppercase text-blueprint-accent">
+                                Distributed Network
+                            </div>
                         </div>
-
-                        {/* Connection Lines */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[2px] h-12 bg-blueprint-accent opacity-40 blur-[1px]" />
-                        <div className="absolute top-1/2 left-[calc(50%-10px)] -translate-x-1/2 -translate-y-1/2 w-4 h-[2px] bg-blueprint-accent opacity-40" />
-                        <div className="absolute top-1/2 left-[calc(50%+10px)] -translate-x-1/2 -translate-y-1/2 w-4 h-[2px] bg-blueprint-accent opacity-40" />
                     </div>
                 </div>
 
@@ -107,24 +127,39 @@ const ExplodedView = () => {
                     {components.slice(2, 4).map((comp, i) => (
                         <div
                             key={i + 2}
-                            ref={el => componentRefs.current[i + 2] = el}
-                            className="p-xl bg-blueprint-surface/40 backdrop-blur-xl rounded-button border border-white/5 space-y-md hover:border-blueprint-accent/30 transition-blueprint group"
+                            ref={(el) => (componentRefs.current[i + 2] = el)}
+                            className="p-8 bg-blueprint-surface/20 backdrop-blur-xl rounded-button border border-white/5 space-y-4 hover:border-blueprint-accent/40 transition-all duration-300"
                         >
                             <div className="w-12 h-12 rounded-lg bg-blueprint-accent/10 flex items-center justify-center text-blueprint-accent">
                                 {comp.icon}
                             </div>
-                            <h4 className="font-bold text-xl uppercase font-sans text-blueprint-text">{comp.title}</h4>
-                            <p className="text-blueprint-text/40 text-sm leading-relaxed font-sans">{comp.desc}</p>
+                            <h4 className="font-bold text-lg uppercase font-sans text-blueprint-text">
+                                {comp.title}
+                            </h4>
+                            <p className="text-blueprint-text/60 text-sm leading-relaxed font-sans">
+                                {comp.desc}
+                            </p>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Technical Detail Text */}
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center opacity-20 pointer-events-none">
-                <div className="text-[10px] font-bold tracking-[0.5em] uppercase text-blueprint-text">
-                    Blueprint SC-TURBINE-0X // Dynamic Simulation v1.4
-                </div>
+            <div className="max-w-7xl mx-auto mt-20 border-t border-white/5 pt-16 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-70">
+                {[
+                    { label: 'System Reach', value: 'Whole Home' },
+                    { label: 'Air Handling', value: 'Centralized' },
+                    { label: 'Noise Zone', value: 'Remote' },
+                    { label: 'Installation', value: 'Integrated' },
+                ].map((spec, i) => (
+                    <div key={i} className="text-center">
+                        <div className="text-[10px] font-black tracking-widest uppercase text-blueprint-accent mb-2">
+                            {spec.label}
+                        </div>
+                        <div className="text-2xl font-bold text-blueprint-text">
+                            {spec.value}
+                        </div>
+                    </div>
+                ))}
             </div>
         </section>
     );
