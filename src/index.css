@@ -123,3 +123,8 @@ canvas {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@keyframes scan {
+  from { top: 0% }
+  to { top: 100% }
+}

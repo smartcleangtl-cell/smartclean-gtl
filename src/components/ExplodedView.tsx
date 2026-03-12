@@ -95,31 +95,37 @@ const ExplodedView = () => {
                 </div>
 
                 {/* Center visual stack */}
-                <div className="col-span-12 lg:col-span-4 h-[480px] order-1 lg:order-2 relative flex items-center justify-center px-4">
-                    <div className="relative w-full h-full flex flex-col gap-4">
-                        <div className="flex-1 rounded-button bg-blueprint-surface/10 border border-white/5 overflow-hidden relative group">
-                            <img
-                                src="/motor_unit.png"
-                                className="w-full h-full object-cover opacity-40 grayscale group-hover:opacity-60 transition-opacity"
-                                alt="Central Power Unit"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F14] to-transparent opacity-60" />
-                            <div className="absolute bottom-4 left-4 text-[9px] font-black tracking-widest uppercase text-blueprint-accent">
-                                Infrastructure Core
+                <div className="col-span-12 lg:col-span-4 h-[320px] sm:h-[400px] lg:h-[480px] order-1 lg:order-2 relative flex items-center justify-center px-4">
+                    <div className="relative w-full h-full rounded-button overflow-hidden border border-white/5 bg-blueprint-surface/10 group">
+                        {/* Video Background */}
+                        <video 
+                            autoPlay 
+                            muted 
+                            loop 
+                            playsInline
+                            className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700"
+                        >
+                            <source src="/assets/reveal2.mp4" type="video/mp4" />
+                        </video>
+                        
+                        {/* Overlays */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F14] via-transparent to-[#0B0F14]/40" />
+                        <div className="absolute inset-0 bg-blueprint-accent/5 mix-blend-overlay" />
+
+                        {/* Labels */}
+                        <div className="absolute bottom-6 left-6 flex flex-col gap-2">
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-blueprint-accent animate-pulse" />
+                                <span className="text-[10px] font-black tracking-[0.3em] uppercase text-blueprint-text">Infrastructure Core</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-blueprint-accent/40" />
+                                <span className="text-[10px] font-black tracking-[0.3em] uppercase text-blueprint-text/60">Distributed Network</span>
                             </div>
                         </div>
 
-                        <div className="flex-1 rounded-button bg-blueprint-surface/10 border border-white/5 overflow-hidden relative group">
-                            <img
-                                src="/pipe_diagram.png"
-                                className="w-full h-full object-cover opacity-40 grayscale group-hover:opacity-60 transition-opacity"
-                                alt="Pipe System Diagram"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F14] to-transparent opacity-60" />
-                            <div className="absolute bottom-4 left-4 text-[9px] font-black tracking-widest uppercase text-blueprint-accent">
-                                Distributed Network
-                            </div>
-                        </div>
+                        {/* Scanning Effect */}
+                        <div className="absolute inset-x-0 h-[1px] bg-blueprint-accent/30 top-0 animate-[scan_4s_linear_infinite] shadow-[0_0_15px_rgba(79,109,255,0.5)]" />
                     </div>
                 </div>
 
@@ -144,7 +150,7 @@ const ExplodedView = () => {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto mt-20 border-t border-white/5 pt-16 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-70">
+            <div className="max-w-7xl mx-auto mt-20 border-t border-white/5 pt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 opacity-70">
                 {[
                     { label: 'System Reach', value: 'Whole Home' },
                     { label: 'Air Handling', value: 'Centralized' },

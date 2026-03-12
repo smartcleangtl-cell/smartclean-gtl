@@ -76,11 +76,11 @@ const SystemReveal = () => {
     const [isActive, setIsActive] = useState(false);
 
     return (
-        <section className="relative min-h-screen w-full bg-[#0B0F14] py-[180px] px-6 overflow-hidden border-y border-white/5">
+        <section className="relative min-h-screen w-full bg-[#0B0F14] py-24 md:py-[180px] px-6 overflow-hidden border-y border-white/5">
             <div className="max-w-7xl mx-auto grid grid-cols-12 gap-md items-center">
 
                 {/* Left: Text Content */}
-                <div className="col-span-12 lg:col-span-5 space-y-md z-10">
+                <div className="col-span-12 md:col-span-5 space-y-md z-10">
                     <div className="inline-flex items-center gap-3 text-blueprint-accent font-bold tracking-[0.3em] text-[12px] uppercase font-sans">
                         <span className="w-10 h-[1px] bg-blueprint-accent/50" />
                         Wall Inlet Interface
@@ -107,23 +107,39 @@ const SystemReveal = () => {
                     </div>
                 </div>
 
-                {/* Right: Interactive 3D Inlet */}
                 <div
-                    className="col-span-12 lg:col-span-7 relative h-[600px] rounded-[3rem] overflow-hidden bg-blueprint-surface/20 border border-white/5 shadow-2xl cursor-pointer"
+                    className="col-span-12 md:col-span-7 relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-[2rem] sm:rounded-[3rem] overflow-hidden bg-blueprint-surface/20 border border-white/5 shadow-2xl cursor-pointer group"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     onClick={() => setIsActive(!isActive)}
                 >
-                    <Canvas>
-                        <ambientLight intensity={0.5} />
-                        <pointLight position={[5, 5, 5]} intensity={2} color="#F6F7F8" />
-                        <spotLight position={[-5, 5, 10]} intensity={3} color="#4F6DFF" angle={0.2} />
+                    {/* Video Background */}
+                    <div className="absolute inset-0 z-0">
+                        <video 
+                            autoPlay 
+                            muted 
+                            loop 
+                            playsInline
+                            className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700"
+                        >
+                            <source src="/assets/reveal1.mp4" type="video/mp4" />
+                        </video>
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F14] via-transparent to-transparent opacity-60" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F14] via-transparent to-[#0B0F14]/40" />
+                    </div>
 
-                        <InletModel active={isActive} hovered={isHovered} />
-                    </Canvas>
+                    <div className="relative z-10 w-full h-full">
+                        <Canvas>
+                            <ambientLight intensity={0.5} />
+                            <pointLight position={[5, 5, 5]} intensity={2} color="#F6F7F8" />
+                            <spotLight position={[-5, 5, 10]} intensity={3} color="#4F6DFF" angle={0.2} />
+
+                            <InletModel active={isActive} hovered={isHovered} />
+                        </Canvas>
+                    </div>
 
                     {/* Interaction Cues */}
-                    <div className="absolute inset-x-0 bottom-8 flex justify-center pointer-events-none">
+                    <div className="absolute inset-x-0 bottom-8 flex justify-center pointer-events-none z-20">
                         <div className="glass-premium px-6 py-3 rounded-full flex items-center gap-3 animate-bounce bg-white/10 backdrop-blur-2xl border-white/20">
                             <MousePointer2 size={14} className="text-blueprint-accent" />
                             <span className="text-[12px] font-bold tracking-[0.2em] uppercase text-blueprint-text">
@@ -133,7 +149,7 @@ const SystemReveal = () => {
                     </div>
 
                     {/* Technical Annotation */}
-                    <div className="absolute top-8 right-8 text-right">
+                    <div className="absolute top-8 right-8 text-right z-20">
                         <div className="text-[11px] font-bold tracking-[0.3em] uppercase text-blueprint-text/60">
                             Model: SC-INLET-04 <br />
                             Material: Brushed Aluminum <br />

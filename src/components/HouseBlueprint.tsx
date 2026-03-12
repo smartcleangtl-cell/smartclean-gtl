@@ -60,11 +60,11 @@ const HouseBlueprint = ({ scrollProgress }: HouseBlueprintProps) => {
   }, []);
 
   // ---------- Motor scale & position ----------
-  const motorW = isDesktop ? viewport.width * 0.45 : viewport.width * 0.75;
+  const motorW = isDesktop ? viewport.width * 0.45 : viewport.width * 0.65;
   const motorH = motorW / MOTOR_ASPECT;
-  const motorX = isDesktop ? 2.5 : 0;
-  const motorY = -0.2;
-  const motorZ = -2;
+  const motorX = isDesktop ? 2.5 : 1.5;
+  const motorY = isDesktop ? -0.2 : -0.6;
+  const motorZ = isDesktop ? -2 : -1;
 
   // ---------- Animation loop ----------
   useFrame((state) => {

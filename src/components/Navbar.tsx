@@ -82,7 +82,7 @@ const Navbar = () => {
 
             <div className={cn(
                 "px-md md:px-xl transition-all duration-700 mx-auto max-w-[1600px]",
-                isScrolled ? "h-[64px]" : "h-[90px] lg:h-[110px]"
+                isScrolled ? "h-[64px]" : "h-[80px] md:h-[90px] lg:h-[110px]"
             )}>
                 <div className="h-full flex items-center justify-between">
                     <Link to="/" className="flex items-center gap-5 group flex-shrink-0">
@@ -110,8 +110,8 @@ const Navbar = () => {
                     </Link>
 
                     {/* Navbar Content */}
-                    <div className="hidden lg:flex items-center gap-16">
-                        <div className="flex items-center gap-10">
+                    <div className="hidden xl:flex items-center gap-8 2xl:gap-16">
+                        <div className="flex items-center gap-6 2xl:gap-10">
                             {navItems.map((item) => (
                                 <Link
                                     key={item.name}
@@ -148,7 +148,7 @@ const Navbar = () => {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="lg:hidden text-blueprint-text p-3 hover:bg-white/5 rounded-2xl transition-all"
+                        className="xl:hidden text-blueprint-text p-3 hover:bg-white/5 rounded-2xl transition-all"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         <Menu size={28} />
@@ -159,7 +159,7 @@ const Navbar = () => {
             {/* Mobile Menu Overlay */}
             <div
                 className={cn(
-                    'fixed inset-0 bg-[#06080A]/98 backdrop-blur-3xl z-[2000] lg:hidden transition-all duration-700 ease-in-out px-10 pt-40',
+                    'fixed inset-0 bg-[#06080A]/98 backdrop-blur-3xl z-[2000] xl:hidden transition-all duration-700 ease-in-out px-10 pt-40',
                     isMobileMenuOpen
                         ? 'translate-y-0 opacity-100'
                         : '-translate-y-full opacity-0 pointer-events-none'
