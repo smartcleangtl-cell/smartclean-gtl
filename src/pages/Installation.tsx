@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import InstallationProcess from '../components/InstallationProcess';
 
 const Installation = () => {
@@ -10,6 +11,13 @@ const Installation = () => {
             transition={{ duration: 0.8 }}
             className="bg-[#0B0F14] pt-24 text-blueprint-text"
         >
+            <Helmet>
+                <title>Professional Vacuum Installation | SmartClean Engineering</title>
+                <meta name="description" content="Expert integration of central vacuum infrastructure into your building project. Specializing in luxury apartment complexes, villas, and industrial retrofits in Sri Lanka." />
+                <meta name="keywords" content="central vacuum installation, building construction cleaning tech, luxury apartment infrastructure Sri Lanka, real estate development utilities, vacuum system retrofit, structural cleaning design, professional vacuum engineering" />
+                <meta property="og:title" content="Professional Vacuum Installation | SmartClean Engineering" />
+                <meta property="og:description" content="Seamless integration of cleaning technology during the construction phase or as a structural retrofit." />
+            </Helmet>
             <section className="py-[120px] px-6">
                 <div className="max-w-7xl mx-auto space-y-md">
                     <div className="inline-flex items-center gap-3 text-blueprint-accent font-bold tracking-[0.4em] text-[10px] uppercase font-sans">

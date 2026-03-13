@@ -77,7 +77,7 @@ export default function HouseBlueprint() {
             <group position={[isDesktop ? 2 : 0, -1.5, -4]}>
                 <Image
                     ref={bgRef}
-                    url="/assets/motor transp.png" // Place your generated image in the public folder
+                    url="/motor transp.png" // Place your generated image in the public folder
                     transparent
                     scale={[viewport.width * 1.5, viewport.height * 1.5]}
                 />

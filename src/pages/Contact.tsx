@@ -1,7 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 import { CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { getAdminBriefingTemplate, getUserWelcomeTemplate } from '../utils/emailTemplates';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -19,19 +21,32 @@ const Contact = () => {
         setStatus('submitting');
 
         try {
+            // 1. Send Admin Briefing (to smartclean.gtl@gmail.com)
+            const adminHtml = getAdminBriefingTemplate(formData);
             await emailjs.send(
                 'service_rjvwsp9',
                 'template_fvom56h',
                 {
-                    name: formData.name,
-                    email: formData.email,
-                    phone: formData.phone,
-                    scale: formData.scale,
-                    sector: formData.sector,
-                    vision: formData.vision,
+                    to_email: 'smartclean.gtl@gmail.com',
+                    subject: `New Project Briefing: ${formData.name}`,
+                    message_body: adminHtml,
                 },
                 'ZJG1ZAQeM6ic_4wSv'
             );
+
+            // 2. Send Welcome Email (to the Person who filled the form)
+            const welcomeHtml = getUserWelcomeTemplate(formData);
+            await emailjs.send(
+                'service_rjvwsp9',
+                'template_xspxi7a',
+                {
+                    to_email: formData.email,
+                    subject: `Welcome to SmartClean - Connection Established`,
+                    message_body: welcomeHtml,
+                },
+                'ZJG1ZAQeM6ic_4wSv'
+            );
+
             setStatus('success');
         } catch (error) {
             console.error('Email transmission failed:', error);
@@ -55,6 +70,13 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="bg-[#0B0F14] pt-24 min-h-screen relative overflow-hidden text-blueprint-text"
         >
+            <Helmet>
+                <title>Contact SmartClean | Request Site Assessment Sri Lanka</title>
+                <meta name="description" content="Connect with our engineering team for site assessments and system quotes. Serving residential construction, hair salons, hotels, and luxury apartment developments in Sri Lanka." />
+                <meta name="keywords" content="contact smartclean, vacuum system quote Sri Lanka, hair salon cleaning demo, beauty parlor hygiene systems, luxury home cleaning assessment, residential construction tech contact, commercial vacuum solutions" />
+                <meta property="og:title" content="Contact SmartClean | Request Site Assessment Sri Lanka" />
+                <meta property="og:description" content="Plan your integrated cleaning infrastructure with our professional engineering team." />
+            </Helmet>
             <section className="py-[120px] px-6 relative z-10">
                 <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-24 lg:gap-32">
                     <div className="lg:w-1/2 space-y-md">
@@ -79,7 +101,7 @@ const Contact = () => {
                             </div>
                             <div className="space-y-2">
                                 <p className="text-[10px] font-bold text-blueprint-text/20 uppercase tracking-[0.4em] font-sans">Data Uplink</p>
-                                <p className="text-lg font-sans text-blueprint-text/60">inquiry@smartclean.lk</p>
+                                <p className="text-lg font-sans text-blueprint-text/60">smartclean.gtl@gmail.com</p>
                             </div>
                         </div>
                     </div>

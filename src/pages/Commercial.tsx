@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import PerformanceStats from '../components/PerformanceStats';
 
 const Commercial = () => {
@@ -10,6 +11,13 @@ const Commercial = () => {
             transition={{ duration: 0.8 }}
             className="bg-[#0B0F14] pt-24 text-blueprint-text"
         >
+            <Helmet>
+                <title>Commercial Central Vacuum Infrastructure | SmartClean Sri Lanka</title>
+                <meta name="description" content="Industrial-grade cleaning solutions for hotels, hair salons, beauty parlors, clinics, and multi-unit developments. High-output vacuum infrastructure designed for permanence and hygiene." />
+                <meta name="keywords" content="commercial vacuum systems, enterprise cleaning tech, building utilities Sri Lanka, hotel cleaning infrastructure, hair salon cleaning, beauty parlor hygiene, dental clinic cleaning, gym vacuum systems, industrial scale vacuum, permanent cleaning solutions, commercial construction tech" />
+                <meta property="og:title" content="Commercial Central Vacuum Infrastructure | SmartClean Sri Lanka" />
+                <meta property="og:description" content="Distributed suction protocols for enterprise-scale efficiency. Engineered for high-traffic environments." />
+            </Helmet>
             <section className="py-[120px] px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-12 gap-md items-center">

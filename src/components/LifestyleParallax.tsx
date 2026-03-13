@@ -46,7 +46,7 @@ const LifestyleParallax = () => {
                 <img
                     src="/home_interior.png"
                     className="w-full h-full object-cover"
-                    alt="Modern Home Interior"
+                    alt="Luxury Home Interior Design Sri Lanka - Featuring Integrated Smart Cleaning Tech"
                 />
             </div>
 
@@ -87,7 +87,7 @@ const LifestyleParallax = () => {
                         <img
                             src="/inlet_plate.png"
                             className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000"
-                            alt="SmartClean Wall Inlet Plate"
+                            alt="SmartClean Wall Inlet Plate - Modern Architectural Building Utility"
                         />
                         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0B0F14] to-transparent opacity-80" />
                     </div>

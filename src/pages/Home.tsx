@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Hero from '../components/Hero';
 import SystemReveal from '../components/SystemReveal';
@@ -23,6 +24,15 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="bg-[#0B0F14] text-blueprint-text overflow-x-hidden"
         >
+            <Helmet>
+                <title>SmartClean | High-Tech Central Vacuum Systems Sri Lanka</title>
+                <meta name="description" content="Ultimate cleaning technology for modern Sri Lankan homes, luxury apartments, and commercial spaces. Replace traditional brooms and floor robots with an integrated central vacuum system. Perfect for interior design, hair salons, beauty parlors, and building construction projects." />
+                <meta name="keywords" content="smart home tech, central vacuum system Sri Lanka, luxury interior design, building construction technology, modern cleaning solutions, floor robot alternative, hair salon cleaning, beauty parlor hygiene tech, luxury apartment construction, real estate infrastructure, built-in vacuum, high-end home appliances, architectural tech" />
+                <meta property="og:title" content="SmartClean | High-Tech Central Vacuum Systems Sri Lanka" />
+                <meta property="og:description" content="The future of cleaning is integrated. Discover the ultimate vacuum infrastructure for luxury homes." />
+                <meta property="og:type" content="website" />
+                <meta name="twitter:card" content="summary_large_image" />
+            </Helmet>
             <Hero />
             <ExplodedView />
             <SystemReveal />

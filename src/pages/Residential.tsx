@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import LifestyleParallax from '../components/LifestyleParallax';
 import CleaningDemo from '../components/CleaningDemo';
 
@@ -11,6 +12,13 @@ const Residential = () => {
             transition={{ duration: 0.8 }}
             className="bg-[#0B0F14] pt-24 text-blueprint-text"
         >
+            <Helmet>
+                <title>Residential Central Vacuum Systems | SmartClean Sri Lanka</title>
+                <meta name="description" content="Premium built-in vacuum systems for modern Sri Lankan residences and luxury apartments. Enhance your interior design and property value with permanent smart home cleaning infrastructure. Used in high-end real estate developments." />
+                <meta name="keywords" content="residential vacuum system, luxury home cleaning, built-in vacuum Sri Lanka, interior design tech, smart home infrastructure, building construction luxury, luxury apartment amenities, high-end villa utilities, dust-free home, modern residential tech, floor robot alternative" />
+                <meta property="og:title" content="Residential Central Vacuum Systems | SmartClean Sri Lanka" />
+                <meta property="og:description" content="Upgrade your home with permanent cleaning infrastructure. Designed for premium Sri Lankan villas and apartments." />
+            </Helmet>
             <section className="py-[120px] px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="max-w-4xl mb-32 space-y-md">

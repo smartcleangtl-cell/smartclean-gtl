@@ -21,11 +21,11 @@ if (fs.existsSync(srcLogo)) {
     console.log('Logo copied to public/logo.png');
 }
 
-// Also copy all assets to public/assets for completeness
+// Also copy all assets to public for completeness
 const files = fs.readdirSync(rootAssetsDir);
 files.forEach(file => {
     const srcPath = path.join(rootAssetsDir, file);
-    const destPath = path.join(publicAssetsDir, file);
+    const destPath = path.join(publicDir, file);
     if (!fs.lstatSync(srcPath).isDirectory()) {
         fs.copyFileSync(srcPath, destPath);
     }

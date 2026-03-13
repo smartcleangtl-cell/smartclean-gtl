@@ -5,72 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Wind, Zap, MousePointer2 } from 'lucide-react';
 import * as THREE from 'three';
 
-const InletModel = ({ active, hovered }: { active: boolean, hovered: boolean }) => {
-    const meshRef = useRef<THREE.Group>(null);
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            setMousePos({
-                x: (e.clientX / window.innerWidth - 0.5) * 2,
-                y: (e.clientY / window.innerHeight - 0.5) * -2
-            });
-        };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
-
-    useFrame((state) => {
-        if (meshRef.current) {
-            // Subtle parallax shift (< 3 degrees)
-            const targetRotX = mousePos.y * 0.05;
-            const targetRotY = mousePos.x * 0.05;
-            meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, targetRotX, 0.1);
-            meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, targetRotY, 0.1);
-
-            // Camera snap animation simulation (adjust scale/pos)
-            if (active) {
-                state.camera.position.lerp(new THREE.Vector3(0, 0, 3), 0.1);
-            } else {
-                state.camera.position.lerp(new THREE.Vector3(0, 0, 5), 0.1);
-            }
-        }
-    });
-
-    return (
-        <group ref={meshRef}>
-            {/* Inlet Plate */}
-            <mesh position={[0, 0, 0]}>
-                <boxGeometry args={[2, 2.5, 0.2]} />
-                <meshStandardMaterial
-                    color="#D1D5D9"
-                    metalness={hovered ? 0.9 : 0.7}
-                    roughness={0.1}
-                    emissive="#4F6DFF"
-                    emissiveIntensity={hovered ? 0.1 : 0}
-                />
-            </mesh>
-            {/* The Port */}
-            <mesh position={[0, 0, 0.15]} rotation={[Math.PI / 2, 0, 0]}>
-                <cylinderGeometry args={[0.4, 0.4, 0.3, 32]} />
-                <meshStandardMaterial color="#1B2128" metalness={0.8} />
-            </mesh>
-
-            {/* Hose "Snap" Visual */}
-            <AnimatePresence>
-                {active && (
-                    <group position={[0, 0, 1.5]}>
-                        <mesh position={[0, 0, -1]} rotation={[Math.PI / 2, 0, 0]}>
-                            <cylinderGeometry args={[0.35, 0.35, 1.5, 32]} />
-                            <meshStandardMaterial color="#333" roughness={0.5} />
-                        </mesh>
-                    </group>
-                )}
-            </AnimatePresence>
-        </group>
-    );
-};
-
 const SystemReveal = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [isActive, setIsActive] = useState(false);
@@ -122,20 +56,23 @@ const SystemReveal = () => {
                             playsInline
                             className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700"
                         >
-                            <source src="/assets/reveal1.mp4" type="video/mp4" />
+                            <source src="/reveal1.mp4" type="video/mp4" />
                         </video>
                         <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F14] via-transparent to-transparent opacity-60" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F14] via-transparent to-[#0B0F14]/40" />
                     </div>
 
-                    <div className="relative z-10 w-full h-full">
-                        <Canvas>
-                            <ambientLight intensity={0.5} />
-                            <pointLight position={[5, 5, 5]} intensity={2} color="#F6F7F8" />
-                            <spotLight position={[-5, 5, 10]} intensity={3} color="#4F6DFF" angle={0.2} />
-
-                            <InletModel active={isActive} hovered={isHovered} />
-                        </Canvas>
+                    <div className="relative z-10 w-full h-full flex items-center justify-center">
+                        <motion.img 
+                            src="/snap.png" 
+                            alt="SmartClean Central Vacuum Wall Inlet - Modern Interior Design Tech and Building Infrastructure"
+                            animate={isActive ? { scale: 1.15 } : { scale: [1, 1.05, 1] }}
+                            transition={isActive ? 
+                                { type: "spring", stiffness: 300, damping: 20 } : 
+                                { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                            }
+                            className="w-[80%] h-auto object-contain drop-shadow-[0_0_30px_rgba(79,109,255,0.4)]"
+                        />
                     </div>
 
                     {/* Interaction Cues */}
@@ -143,7 +80,7 @@ const SystemReveal = () => {
                         <div className="glass-premium px-6 py-3 rounded-full flex items-center gap-3 animate-bounce bg-white/10 backdrop-blur-2xl border-white/20">
                             <MousePointer2 size={14} className="text-blueprint-accent" />
                             <span className="text-[12px] font-bold tracking-[0.2em] uppercase text-blueprint-text">
-                                {isActive ? 'System Engaged' : 'Click to Snap Connection'}
+                                {isActive ? 'System Engaged - Click to Release' : 'Click to Snap Connection'}
                             </span>
                         </div>
                     </div>

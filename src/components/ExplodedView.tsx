@@ -105,7 +105,7 @@ const ExplodedView = () => {
                             playsInline
                             className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700"
                         >
-                            <source src="/assets/reveal2.mp4" type="video/mp4" />
+                            <source src="/reveal2.mp4" type="video/mp4" />
                         </video>
                         
                         {/* Overlays */}

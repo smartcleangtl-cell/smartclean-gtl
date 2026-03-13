@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import ExplodedView from '../components/ExplodedView';
 import AirflowLayer from '../components/AirflowLayer';
 import { ArrowDown } from 'lucide-react';
@@ -12,6 +13,13 @@ const HowItWorks = () => {
             transition={{ duration: 0.8 }}
             className="bg-[#0B0F14] text-blueprint-text pt-24"
         >
+            <Helmet>
+                <title>How Central Vacuum Systems Work | SmartClean Technology</title>
+                <meta name="description" content="Discover the science behind central vacuum infrastructure. Learn about structural analysis, pipeline integration, and our central power core technology." />
+                <meta name="keywords" content="central vacuum technology, vacuum engineering, smart home infrastructure, how central vacuum works, building construction Sri Lanka, HVAC and cleaning tech, integrated home utilities" />
+                <meta property="og:title" content="How Central Vacuum Systems Work | SmartClean Technology" />
+                <meta property="og:description" content="A hidden network of high-durability infrastructure for 100% volumetric extraction." />
+            </Helmet>
             <section className="py-[120px] px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-12 gap-md items-center mb-32">
